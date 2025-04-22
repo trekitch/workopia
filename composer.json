@@ -1,0 +1,16 @@
+{
+  "name": "trekitch/workopia",
+  "description": "job posting vanilla php site",
+  "authors": [
+    {
+      "name": "Tre'von Kitchen",
+      "email": "trekitch10@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Framework\\": "Framework/",
+      "App\\": "App/"
+    }
+  }
+}
