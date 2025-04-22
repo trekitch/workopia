@@ -238,7 +238,7 @@ class ListingController
 
         $requiredFields = ['title', 'description', 'salary', 'city', 'state', 'email'];
 
-        $erros = [];
+        $errors = [];
 
         foreach ($requiredFields as $field) {
             if (empty($updateValues[$field]) || !Validation::string($updateValues[$field])) {
@@ -265,13 +265,13 @@ class ListingController
             $updateQuery = "UPDATE listings SET $updateFields WHERE id = :id";
 
             $updateValues['id'] = $id;
-            //$this->db->query($updateQuery, $updateValues);
+            $this->db->query($updateQuery, $updateValues);
 
 
 
             //create flash message
             $_SESSION['success_message'] = 'Listing Updated.';
-            redirct('/listings/ . $id');
+            redirct('/listings/' . $id);
         }
     }
 }
