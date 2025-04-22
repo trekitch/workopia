@@ -1,7 +1,8 @@
 <?php
-require __DIR__ . '/../vendor/autoload.php'
+require __DIR__ . '/../vendor/autoload.php';
 require '../helpers.php';
 
+use Framework\Router;
 
 //Instating the router
 $router = new Router();
