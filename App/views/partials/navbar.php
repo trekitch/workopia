@@ -15,7 +15,7 @@ use Framework\Session;
                     <div>
                         Welcome <?= Session::get('user')['name'] ?>
                     </div>
-                    <form>
+                    <form method="POST" action="/auth/logout">
                         <button type="submit" calss="text-white inline hover:underline">Log out</button>
                     </form>
 
