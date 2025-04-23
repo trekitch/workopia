@@ -4,6 +4,7 @@ namespace App\controllers;
 
 use Framework\Database;
 use Framework\Validation;
+use Framework\Session;
 
 class UserController
 {
@@ -84,8 +85,47 @@ class UserController
                 ],
             ]);
             exit;
-        } else {
-            inspectAndDie('Store');
         }
+
+        //Check if email exists
+        $params = [
+            'email' => $email
+        ];
+
+        $user = $this->db->query('SELECT * FROM  users where email = :email', $params)->fetch();
+
+        if ($user) {
+            $errors['email'] = 'That email already exists';
+            loadView('users/create', [
+                'errors' => $errors
+            ]);
+            exit;
+        }
+
+        //Create user account
+        $params = [
+            'name' => $name,
+            'email' => $email,
+            'city' => $city,
+            'state' => $state,
+            'password' => password_hash($password, PASSWORD_DEFAULT),
+        ];
+
+        $this->db->query('INSERT INTO users (name, email, city, state, password) VALUES (:name, :email, :city, :state, :password)', $params);
+
+        //GET new user id
+        $userId = $this->db->conn->lastInsertId();
+
+        Session::set('user', [
+            'id' =>  $userId,
+            'name' =>  $name,
+            'email' =>  $email,
+            'city' =>  $city,
+            'state' =>  $state,
+        ]);
+
+        inspectAndDie(Session::get('user'));
+
+        redirct('/');
     }
 }
